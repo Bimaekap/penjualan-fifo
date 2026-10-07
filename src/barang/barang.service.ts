@@ -10,7 +10,7 @@ import { ConflictException } from '@nestjs/common';
 export class BarangService {
 
   constructor(
-    @InjectRepository(Barang)
+    @InjectRepository(Barang) 
     private readonly barangRepository: Repository<Barang>
   ) { }
 
@@ -34,12 +34,12 @@ export class BarangService {
     return await this.barangRepository.save(barang);
   };
 
-  findAll() {
-    return `This action returns all barang`;
+  async findAll() {
+    return await this.barangRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} barang`;
+  async findOne(id: number) {
+    return await this.barangRepository.findOne({ where: { id } });
   }
 
   update(id: number, updateBarangDto: UpdateBarangDto) {

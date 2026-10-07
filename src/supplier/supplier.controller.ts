@@ -19,22 +19,24 @@ export class SupplierController {
   }
 
   @Get()
-  findAll() {
-    return this.supplierService.findAll();
+  @HttpCode(HttpStatus.OK)
+  async findAll() {
+    const data = await this.supplierService.findAll();
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Data supplier berhasil diambil',
+      data,
+    };
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.supplierService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSupplierDto: UpdateSupplierDto) {
-    return this.supplierService.update(+id, updateSupplierDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.supplierService.remove(+id);
+  @HttpCode(HttpStatus.OK)
+  async findOne(@Param('id') id: string) {
+    const data = await this.supplierService.findOne(+id);
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Data supplier berhasil diambil',
+      data,
+    };
   }
 }

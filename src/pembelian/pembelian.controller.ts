@@ -21,9 +21,15 @@ export class PembelianController {
   }
 
   @Get()
-  findAll() {
-    return this.pembelianService.findAll();
-  }
+  @HttpCode(HttpStatus.OK)
+  async findAll() {
+    const data = await this.pembelianService.findAll();
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Data riwayat pembelian berhasil diambil',
+      data,
+    }
+      }
 
   @Get(':id')
   findOne(@Param('id') id: string) {

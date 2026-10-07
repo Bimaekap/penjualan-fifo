@@ -19,6 +19,7 @@ import { Barang } from './barang/entities/barang.entity.js';
 import { Supplier } from './supplier/entities/supplier.entity.js';
 import { Pembelian } from './pembelian/entities/pembelian.entity.js';
 import { BatchStok } from './batch_stok/entities/batch_stok.entity.js';
+import { AuthModule } from './auth/auth.module.js';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -29,8 +30,8 @@ import { BatchStok } from './batch_stok/entities/batch_stok.entity.js';
         const dbName = configService.get<string>('DATABASE_NAME', 'test'); // Default ke 'nest_db' jika env kosong
         const dbUser = configService.get<string>('DB_USERNAME', 'root');
         const dbPassword = configService.get<string>('DB_PASSWORD');
-        const dbHost = configService.get<string>('DB_HOST');
-        const dbPort = configService.get<number>('DB_PORT');
+        const dbHost = configService.get<string>('DB_HOST', 'localhost');
+        const dbPort = configService.get<number>('DB_PORT', 3307);
         const dbDatabase = configService.get<string>('DB_DATABASE', dbName);
 
         return {
@@ -52,8 +53,12 @@ import { BatchStok } from './batch_stok/entities/batch_stok.entity.js';
     PembelianModule,
     BatchStokModule,
     DetailPenjualanModule,
+    AuthModule,
   ],
   controllers: [AppController, BukuController],
   providers: [AppService, BukuService],
 })
-export class AppModule { }  
+export class AppModule { 
+
+  }  
+  

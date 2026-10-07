@@ -31,6 +31,7 @@ export class PenjualanController {
 
   // GET /penjualan/:id - Mengambil 1 detail nota spesifik beserta relasi FIFO batch-nya
   @Get(':id')
+  @HttpCode(HttpStatus.OK)
   async findOne(@Param('id', ParseIntPipe) id: number) {
     const data = await this.penjualanService.findOne(id);
     return {

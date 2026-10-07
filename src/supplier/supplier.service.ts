@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, NotFoundException, Injectable, HttpCode, HttpStatus } from '@nestjs/common';
 import { CreateSupplierDto } from './dto/create-supplier.dto.js';
 import { UpdateSupplierDto } from './dto/update-supplier.dto.js';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -31,8 +31,15 @@ export class SupplierService {
     return await this.supplierRepository.save(supplier);
   };
 
-  findAll() {
-    return `This action returns all supplier`;
+  async findAll() {
+    const suppliers = await this.supplierRepository.find();
+    
+    if(!suppliers){
+      throw new NotFoundException(`Tidak ada supplier yang ditemukan.`);
+    }
+
+    return suppliers;
+  
   }
 
   findOne(id: number) {

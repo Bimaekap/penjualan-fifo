@@ -19,22 +19,24 @@ export class BarangController {
   }
 
   @Get()
-  findAll() {
-    return this.barangService.findAll();
+  @HttpCode(HttpStatus.OK)
+  async findAll() {
+    const data = await this.barangService.findAll();
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Data barang berhasil diambil',
+      data,
+    }
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.barangService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBarangDto: UpdateBarangDto) {
-    return this.barangService.update(+id, updateBarangDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.barangService.remove(+id);
+  @HttpCode(HttpStatus.OK)
+  async findOne(@Param('id') id: string) {
+    const data = await this.barangService.findOne(+id);
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Data barang berhasil diambil bersdasarkan ID',
+      data,
+    }
   }
 }

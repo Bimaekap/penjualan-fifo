@@ -11,7 +11,7 @@ export class BatchStokController {
   async findAvailable(@Query('barangId') barangId?: number) {
     const data = await this.batchStokService.findAvailableBatches(barangId ? Number(barangId) : undefined);
     return {
-      statusCode: HttpStatus.OK,
+      statusCode  : HttpStatus.OK,
       message: 'Berhasil mengambil daftar BatchStok aktif (FIFO)',
       data,
     }
